@@ -16,7 +16,7 @@ Classic approach (from a git repository; requires [Rust][2]):
 cargo install --git "https://gitgud.io/mataha/gunz-replay"
 ```
 
-Alternatively, one can download a binary from the releases page,
+Alternatively, one can download a binary from [here](./releases),
 then place it somewhere accessible by the `PATH`.
 
 ## Manual
@@ -44,7 +44,7 @@ There are a few caveats:
    e.g. on Windows:
    
    ```batch
-   dir /b <directory> | find /i <character>
+   dir /b "<directory>" | find /i "<character>"
    ```
 
 ## Sample usage
