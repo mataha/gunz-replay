@@ -17,7 +17,8 @@ cargo install --git "https://gitgud.io/mataha/gunz-replay"
 ```
 
 Alternatively, one can download a binary from [here][3],
-then place it somewhere accessible by the `PATH`.
+then place it somewhere accessible by the `PATH` (or even directly
+in a replay directory).
 
 ## Manual
 
@@ -30,7 +31,7 @@ replays containing the specified character name.
 
 There are a few caveats:
 
- - works only with replays up to V5 (mid-ijji) for now
+ - works only with replays up to V5 (mid-ijji)
  - doesn't support non-ASCII encodings yet ([EUC-KR][4] comes to mind)
  - only players present from the start are taken into account
  - takes *a rather long time* to slew through gargantuan collections
