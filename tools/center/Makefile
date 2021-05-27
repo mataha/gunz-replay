@@ -50,11 +50,11 @@ OBJS := $(addprefix $(OBJ_PATH)/,$(addsuffix .o,$(notdir $(basename $(SRCS)))))
 DEPS := $(OBJS:$(OBJ_PATH)/%.o=$(DEP_PATH)/%.d)
 
 DIR_LIST := $(BIN_PATH) $(OBJ_PATH) $(DEP_PATH)
-INC_LIST := $(sort $(dir $(wildcard $(SRC_PATH)/*/)))
+INC_LIST := $(sort $(dir $(wildcard $(SRC_PATH)/*/))) $(ROOT)/
 
 CC       := $(COMPILER)
 CFLAGS   := -Wall -Wextra -Wundef -O2 $(COMPILER_FLAGS)
-CPPFLAGS := $(addprefix -I,$(call enquote,$(INC_LIST))) -MMD -MP
+CPPFLAGS := $(addprefix -I,$(call enquote,$(INC_LIST:/=))) -MMD -MP
 LDFLAGS  := $(LINKER_FLAGS)
 MD       := mkdir -p
 RD       := rm -rf
