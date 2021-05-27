@@ -18,7 +18,7 @@ DESCRIPTION = Centers an executable's main window on the primary display
 SRC_DIR = src
 
 COMPILER       = gcc
-COMPILER_FLAGS = -Wno-unused-parameter --std=c99 -DWIN32_LEAN_AND_MEAN -remap
+COMPILER_FLAGS = --std=c99 -pedantic -O2 -DWIN32_LEAN_AND_MEAN -remap
 LINKER_FLAGS   = -municode -lkernel32
 
 # ------------------------------------------------------------------------------
@@ -53,7 +53,7 @@ DIR_LIST := $(BIN_PATH) $(OBJ_PATH) $(DEP_PATH)
 INC_LIST := $(sort $(dir $(wildcard $(SRC_PATH)/*/))) $(ROOT)/
 
 CC       := $(COMPILER)
-CFLAGS   := -Wall -Wextra -Wundef -O2 $(COMPILER_FLAGS)
+CFLAGS   := -Wall -Wextra -Wundef -Wno-unused-parameter $(COMPILER_FLAGS)
 CPPFLAGS := $(addprefix -I,$(call enquote,$(INC_LIST:/=))) -MMD -MP
 LDFLAGS  := $(LINKER_FLAGS)
 MD       := mkdir -p
