@@ -15,9 +15,14 @@
 #pragma once
 
 /*
- * Adjustable via first parameter.
- * Note that this is case-sensitive.
+ * Default name of the executable to center its main window on the primary
+ * display. Note that this is case-sensitive, as some servers can be easily
+ * distinguished by their binaries' filenames - for reference, most servers
+ * have 'Gunz.exe' as their client's executable name, but this program targets
+ * neo-International GunZ, which uses 'GunZ.exe' instead.
+ *
+ * Adjustable via the first parameter.
  */
-#ifndef CFG_DEFAULT_EXECUTABLE_NAME
-# define CFG_DEFAULT_EXECUTABLE_NAME       "GunZ.exe"
+#ifndef DEFAULT_EXECUTABLE
+# define DEFAULT_EXECUTABLE            "GunZ.exe"
 #endif

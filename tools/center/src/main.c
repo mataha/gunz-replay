@@ -41,7 +41,7 @@ int wmain(int argc, wchar_t * argv[])
         usage(argv[0]);
     }
 
-    LPCWSTR name = (argc > 1) ? argv[1] : WIDEN(CFG_DEFAULT_EXECUTABLE_NAME);
+    LPCWSTR name = (argc > 1) ? argv[1] : WIDEN(DEFAULT_EXECUTABLE);
 
     DEBUG(L"Executable: %ls\n", name);
 
