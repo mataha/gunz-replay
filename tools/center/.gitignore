@@ -1,0 +1,8 @@
+# Binaries
+bin/
+
+# Object files
+obj/
+
+# Dependencies
+dep/
