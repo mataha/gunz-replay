@@ -17,6 +17,7 @@
 #include <wchar.h>
 
 #include "config.h"
+#include "debug.h"
 #include "process.h"
 #include "string.h"
 #include "window.h"
@@ -42,9 +43,7 @@ int wmain(int argc, wchar_t * argv[])
 
     LPCWSTR name = (argc > 1) ? argv[1] : WIDEN(CFG_DEFAULT_EXECUTABLE_NAME);
 
-#ifdef DEBUG
-    fwprintf_s(stderr, L"Executable: %ls\n", name);
-#endif
+    DEBUG(L"Executable: %ls\n", name);
 
     DWORD pid = FindFirstProcessByExecutableName(name);
     if (pid == INVALID_PROCESS_VALUE)
@@ -52,9 +51,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"An executable with the specified name could not be found.");
     }
 
-#ifdef DEBUG
-    fwprintf_s(stderr, L"Process ID: %lu\n", pid);
-#endif
+    DEBUG(L"Process ID: %lu\n", pid);
 
     HWND handle = FindMainWindowByProcessId(pid);
     if (handle == NULL)
@@ -62,9 +59,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"An executable with the specified name has no visible windows.");
     }
 
-#ifdef DEBUG
-    fwprintf_s(stderr, L"Handle:     0x%p\n", handle);
-#endif
+    DEBUG(L"Handle:     0x%p\n", handle);
 
     if (!CenterWindowOnPrimaryDisplay(handle))
     {

@@ -59,6 +59,10 @@ LDFLAGS  := $(LINKER_FLAGS)
 MD       := mkdir -p
 RD       := rm -rf
 
+ifeq ("$(origin DEBUG)","command line")
+    CFLAGS += -DDEBUG_BUILD=1
+endif
+
 
 default: mkdir all
 
