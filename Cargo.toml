@@ -17,6 +17,11 @@ publish = false
 [badges]
 maintenance = { status = "experimental" }
 
+# https://llvm.org/docs/LinkTimeOptimization.html
+[profile.release]
+lto = true
+codegen-units = 1
+
 [[bin]]
 name = "gzre"
 path = "src/main.rs"
