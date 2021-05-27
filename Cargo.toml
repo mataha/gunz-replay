@@ -5,7 +5,8 @@ version = "0.0.1-SNAPSHOT"
 edition = "2018"
 authors = ["mataha <mataha@users.noreply.github.com>"]
 license = "GPL-3.0-or-later"
-readme = "README.md"
+readme = "docs/README.md"
+homepage = "https://github.com/mataha/gunz-replay"
 repository = "https://github.com/mataha/gunz-replay"
 keywords = ["gunz", "replay"]
 categories = ["command-line-utilities", "parser-implementations"]
@@ -20,10 +21,14 @@ maintenance = { status = "experimental" }
 name = "gzre"
 path = "src/main.rs"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 byteorder = "1.4.3"
 #clap = "3.0.0-beta.2"
 encoding_rs = "0.8.28"
 flate2 = "1.0.20"
+
+[build-dependencies]
+#cargo-strip = "0.2.3"
+
+[dev-dependencies]
+#pretty_assertions = "^0.6.1"

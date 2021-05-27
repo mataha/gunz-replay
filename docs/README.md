@@ -81,7 +81,7 @@ Replays featuring toktok:
 
 ## License
 
-GPLv3. See [LICENSE](./LICENSE).
+GPLv3+. See [LICENSE](../LICENSE).
 
 [1]: https://en.wikipedia.org/wiki/GunZ:_The_Duel
 [2]: https://www.rust-lang.org/
