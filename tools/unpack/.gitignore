@@ -1,0 +1,16 @@
+*.gzf
+*.gzr
+
+# GunZ logs
+mlog.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# virtualenv
+env/
+
+# mypy
+.mypy_cache/
