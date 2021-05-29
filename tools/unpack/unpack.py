@@ -69,7 +69,7 @@ def process(path, overwrite=True):
         print(f"{length:>10n} {output!s}")
 
 
-def error(exception):
+def error(exception, quit=False):
     import traceback
 
     program = pathlib.Path(sys.argv[0]).name
@@ -82,6 +82,9 @@ def error(exception):
         message = type(exception).__name__
 
     print(f"{program}: {cause}: {message}", file=sys.stderr)
+
+    if quit:
+        sys.exit(True)
 
 
 def main(argv=None):
