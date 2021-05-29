@@ -120,8 +120,8 @@ def main(argv=None):
             error(exception)
             code = 1
 
-    sys.exit(code)
+    return code
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)
