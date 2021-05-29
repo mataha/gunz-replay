@@ -47,7 +47,9 @@ def unpack(input, output):
     return len(data)
 
 
-def process(path, overwrite=True):
+def process(filename, overwrite=True):
+    path = pathlib.Path(filename)
+
     if not path.is_file():
         raise ValueError(f"path doesn't point to an operable file: '{path}'")
 
@@ -110,9 +112,9 @@ def main(argv=None):
     args = parser.parse_args(argv)
     code = 0
 
-    for path in args.args:
+    for filename in args.args:
         try:
-            process(path, args.overwrite)
+            process(filename, args.overwrite)
 
         except Exception as exception:
             error(exception)

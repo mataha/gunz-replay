@@ -1,8 +1,10 @@
 import argparse
+import os
 from pathlib import Path
-from typing import Any, NoReturn, Optional, final
+from typing import Any, NoReturn, Optional, Union, final
 
 _Arguments = Optional[list[str]]
+_StrPath = Union[str, os.PathLike[str]]
 
 EXTENSION: str = ...
 
@@ -18,7 +20,7 @@ class OverwriteException(Exception): ...
 
 
 def unpack(input: Path, output: Path) -> int: ...
-def process(path: Path, overwrite: bool = ...) -> None: ...
+def process(filename: _StrPath, overwrite: bool = ...) -> None: ...
 
 
 def error(exception: Exception, quit: bool = ...) -> NoReturn: ...
