@@ -86,7 +86,7 @@ def error(exception, quit=False):
     print(f"{program}: {cause}: {message}", file=sys.stderr)
 
     if quit:
-        sys.exit(True)
+        sys.exit(1)
 
 
 def main(argv=None):
