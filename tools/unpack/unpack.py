@@ -61,7 +61,7 @@ def process(filename, overwrite=True):
     if not file.stat().st_size:
         raise ReplayException(f"corrupted or incomplete replay file: '{file}'")
 
-    output = pathlib.Path(file.stem + EXTENSION)
+    output = file.with_suffix(EXTENSION)
     if not overwrite and output.exists():
         raise OverwriteException(f"output file already exists: '{output}'")
 
