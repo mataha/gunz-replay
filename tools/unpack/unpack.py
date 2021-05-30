@@ -71,12 +71,12 @@ def process(filename, overwrite=True):
         print(f"{length:>10n} {output!s}")
 
 
-def error(exception, quit=False):
+def error(exception, /, quit=False, *, caller_frame=False):
     import traceback
 
     program = pathlib.Path(sys.argv[0]).name
     error = exception.__str__()
-    cause = traceback.extract_stack(None, 2)[1][2]  # name of this function
+    cause = traceback.extract_stack(limit=2)[-int(not caller_frame)].name
 
     if error:
         message = f"{error!s}"
