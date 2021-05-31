@@ -18,7 +18,7 @@ DESCRIPTION = Centers an executable's main window on the primary display
 SRC_DIR = src
 
 COMPILER       = gcc
-COMPILER_FLAGS = --std=c99 -pedantic -O2 -DWIN32_LEAN_AND_MEAN -remap
+COMPILER_FLAGS = -pedantic --std=c99 -Werror -O2 -DWIN32_LEAN_AND_MEAN -remap
 LINKER_FLAGS   = -municode -lkernel32
 
 # ------------------------------------------------------------------------------
