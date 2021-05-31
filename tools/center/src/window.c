@@ -41,7 +41,8 @@ BOOL CenterWindowOnPrimaryDisplay(HWND hWnd)
     );
 }
 
-typedef struct {
+typedef struct
+{
     DWORD dwProcessId;
     HWND hWnd;
 } ENUMWINDOWSCALLBACKDATA;
@@ -58,7 +59,7 @@ static BOOL CALLBACK EnumWindowsCallback(HWND hWnd, LPARAM lParam)
     }
 
     data->hWnd = hWnd;
-    return FALSE;   
+    return FALSE;
 }
 
 HWND FindMainWindowByProcessId(DWORD dwProcessId)
