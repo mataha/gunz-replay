@@ -71,7 +71,7 @@ HWND FindMainWindowByProcessId(DWORD dwProcessId)
     return data.hWnd;
 }
 
-BOOL IsMainWindow(HWND hWnd)
+inline BOOL IsMainWindow(HWND hWnd)
 {   
     return GetWindow(hWnd, GW_OWNER) == NULL && IsWindowVisible(hWnd);
 }
