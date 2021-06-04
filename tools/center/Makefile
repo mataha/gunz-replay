@@ -18,13 +18,13 @@ DESCRIPTION = Centers an executable's main window on the primary display
 SRC_DIR = src
 
 COMPILER       = gcc
-COMPILER_FLAGS = -pedantic --std=c17 -Werror -O2 -DWIN32_LEAN_AND_MEAN -remap
-LINKER_FLAGS   = -municode -mconsole -lkernel32
+COMPILER_FLAGS = -pedantic --std=c17 -Werror -O2 -finline-functions
+LINKER_FLAGS   = -mconsole -s -lkernel32
 
 # ------------------------------------------------------------------------------
 
 # Do not use make's built-in rules and variables
-MAKEFLAGS += -rR
+MAKEFLAGS += --no-builtin-rules --no-builtin-variables
 
 # Encapsulate contents of a given list in double quotes
 override enquote = $(foreach element,$(1),"$(element)")
@@ -41,10 +41,6 @@ SRC_PATH := $(ROOT)/$(SRC_DIR)
 OBJ_PATH := $(ROOT)/$(OBJ_DIR)
 DEP_PATH := $(ROOT)/$(DEP_DIR)
 
-ifeq ($(OS),Windows_NT)
-    PROGRAM := $(addsuffix .exe,$(PROGRAM))
-endif
-
 SRCS := $(foreach path,$(SRC_PATH),$(wildcard $(addprefix $(path)/*,.c*)))
 OBJS := $(addprefix $(OBJ_PATH)/,$(addsuffix .o,$(notdir $(basename $(SRCS)))))
 DEPS := $(OBJS:$(OBJ_PATH)/%.o=$(DEP_PATH)/%.d)
@@ -56,11 +52,24 @@ CC       := $(COMPILER)
 CFLAGS   := -Wall -Wextra -Wundef -Wno-unused-parameter $(COMPILER_FLAGS)
 CPPFLAGS := $(addprefix -I,$(call enquote,$(INC_LIST:/=))) -MMD -MP
 LDFLAGS  := $(LINKER_FLAGS)
-MD       := mkdir -p
-RD       := rm -rf
+MKDIR    := mkdir -p
+RM       := rm -rf
 
-ifeq ("$(origin DEBUG)","command line")
-    CFLAGS += -DDEBUG_BUILD=1
+ifeq ($(OS),Windows_NT)
+    ifeq ($(suffix $(PROGRAM)),)
+        PROGRAM := $(addsuffix .exe,$(PROGRAM))
+    endif
+
+    ifneq ($(CHARSET),ANSI)
+        CFLAGS  += -DUNICODE -D_UNICODE
+        LDFLAGS += -municode
+    endif
+
+    CFLAGS += -DWIN32_LEAN_AND_MEAN
+endif
+
+ifdef DEBUG
+    CFLAGS += -DDEBUG_BUILD
 endif
 
 
@@ -77,11 +86,11 @@ all: $(BIN_PATH)/$(PROGRAM)
 
 PHONY += mkdir
 mkdir:
-	@$(MD) $(call enquote,$(DIR_LIST))
+	@$(MKDIR) $(call enquote,$(DIR_LIST))
 
 PHONY += clean
 clean:
-	@$(RD) $(call enquote,$(DIR_LIST))
+	@$(RM)    $(call enquote,$(DIR_LIST))
 
 .PHONY: $(PHONY)
 
