@@ -13,6 +13,7 @@
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #include <stdlib.h>
+#include <stdnoreturn.h>
 #include <windows.h>
 #include <wchar.h>
 
@@ -22,13 +23,13 @@
 #include "string.h"
 #include "window.h"
 
-static void error(const wchar_t * message)
+static noreturn void error(const wchar_t * message)
 {
     MessageBoxW(NULL, message, L"Error", MB_OK | MB_ICONERROR);
     exit(EXIT_FAILURE);
 }
 
-static void usage(const wchar_t * program)
+static noreturn void usage(const wchar_t * program)
 {
     wprintf_s(L"Usage: %ls [executable]\n", program);
     exit(EXIT_FAILURE);
