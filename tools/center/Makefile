@@ -31,6 +31,7 @@ override enquote = $(foreach element,$(1),"$(element)")
 
 
 ROOT ?= .
+MAIN ?= main
 
 BIN_DIR ?= bin
 OBJ_DIR ?= obj
@@ -63,6 +64,8 @@ ifeq ($(OS),Windows_NT)
     ifneq ($(CHARSET),ANSI)
         CFLAGS  += -DUNICODE -D_UNICODE
         LDFLAGS += -municode
+
+        $(OBJ_PATH)/$(MAIN).o: CFLAGS += -Wno-missing-prototypes
     endif
 
     CFLAGS += -DWIN32_LEAN_AND_MEAN
