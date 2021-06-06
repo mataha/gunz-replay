@@ -18,6 +18,7 @@
 
 #define ERRORF(...) do {                 \
         fwprintf_s(stderr, __VA_ARGS__); \
+        fwprintf_s(stderr, L"\n");       \
     } while (0)
 
 #ifdef DEBUG_BUILD

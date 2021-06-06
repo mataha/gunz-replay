@@ -31,7 +31,7 @@ static noreturn void error(const wchar_t * message)
 
 static noreturn void usage(const wchar_t * program)
 {
-    wprintf_s(L"Usage: %ls [executable]\n", program);
+    ERRORF(L"Usage: %ls [-h] [-d] [executable]", program);
     exit(EXIT_FAILURE);
 }
 
@@ -44,7 +44,7 @@ int wmain(int argc, wchar_t * argv[])
 
     LPCWSTR name = (argc > 1) ? argv[1] : WIDEN(DEFAULT_EXECUTABLE);
 
-    DEBUG(L"Executable: %ls\n", name);
+    DEBUG(L"Executable: %ls", name);
 
     DWORD pid = FindFirstProcessByExecutableName(name);
     if (pid == INVALID_PROCESS_VALUE)
@@ -52,7 +52,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"An executable with the specified name could not be found.");
     }
 
-    DEBUG(L"Process ID: %lu\n", pid);
+    DEBUG(L"Process ID: %lu", pid);
 
     HWND handle = FindMainWindowByProcessId(pid);
     if (handle == NULL)
@@ -60,7 +60,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"An executable with the specified name has no visible windows.");
     }
 
-    DEBUG(L"Handle:     0x%p\n", handle);
+    DEBUG(L"Handle:     0x%p", handle);
 
     if (!CenterWindowOnPrimaryDisplay(handle))
     {
