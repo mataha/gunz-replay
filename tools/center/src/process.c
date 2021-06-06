@@ -41,7 +41,7 @@ DWORD FindFirstProcessByExecutableName(LPCWSTR lpszExecutableName)
 
     do
     {
-        if (wcscmp(pe32.szExeFile, lpszExecutableName) == WCSCMP_IDENTICAL)
+        if (WCSCMP_IDENTICAL == wcscmp(pe32.szExeFile, lpszExecutableName))
         {
             dwProcessId = pe32.th32ProcessID;
             break;
