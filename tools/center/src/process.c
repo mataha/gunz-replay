@@ -13,7 +13,6 @@
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #include <windows.h>
-#include <wchar.h>
 #include <tlhelp32.h> // -lkernel32
 
 #include "process.h"
@@ -41,7 +40,7 @@ DWORD FindFirstProcessByExecutableName(LPCWSTR lpszExecutableName)
 
     do
     {
-        if (WCSCMP_IDENTICAL == wcscmp(pe32.szExeFile, lpszExecutableName))
+        if (wcseq(pe32.szExeFile, lpszExecutableName))
         {
             dwProcessId = pe32.th32ProcessID;
             break;

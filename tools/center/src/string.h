@@ -14,8 +14,12 @@
 
 #pragma once
 
-#define WIDEN_EVALUATE_(x) L##x
-#define WIDEN(x) WIDEN_EVALUATE_(x)
+#include <string.h>
+#include <wchar.h>
 
-#define STRCMP_IDENTICAL ((int) 0)
-#define WCSCMP_IDENTICAL ((int) 0)
+#define __WIDEN_EVALUATE_STRING_H_MACRO(x) L##x
+
+#define widen(x) __WIDEN_EVALUATE_STRING_H_MACRO(x)
+
+#define streq(a, b) (*(a) == *(b) && 0 == strcmp((a), (b)))
+#define wcseq(a, b) (*(a) == *(b) && 0 == wcscmp((a), (b)))
