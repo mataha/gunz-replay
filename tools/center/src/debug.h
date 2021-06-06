@@ -15,10 +15,21 @@
 #pragma once
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #define ERRORF(...) do {                 \
         fwprintf_s(stderr, __VA_ARGS__); \
         fwprintf_s(stderr, L"\n");       \
+    } while (0)
+
+#define SAYF(...) do {                   \
+        wprintf_s(__VA_ARGS__);          \
+        wprintf_s(L"\n");                \
+    } while (0)
+
+#define FATAL(...) do {                  \
+        ERRORF(L"Error: " __VA_ARGS__);  \
+        exit(EXIT_FAILURE);              \
     } while (0)
 
 #ifdef DEBUG_BUILD

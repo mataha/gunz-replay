@@ -12,6 +12,7 @@
 // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdnoreturn.h>
 #include <windows.h>
@@ -31,18 +32,60 @@ static noreturn void error(const wchar_t * message)
 
 static noreturn void usage(const wchar_t * program)
 {
-    ERRORF(L"Usage: %ls [-h] [-d] [executable]", program);
+    ERRORF(L"Usage: %ls [-h] [-a] [executable]", program);
     exit(EXIT_FAILURE);
 }
 
 int wmain(int argc, wchar_t * argv[])
 {
-    if (argc > 2)
+    bool area = false;
+
+    bool option_mode = true;
+    int position = 0;
+
+    for (int i = 1; i < argc; ++i)
     {
-        usage(argv[0]);
+        if (option_mode && argv[i][0] == L'-')
+        {
+            const wchar_t * option = &argv[i][1];
+            if (option != NULL && wcslen(option) == 0)
+            {
+                FATAL(L"Reading from stdin is not supported.");
+            }
+            else if (wcseq(option, L"-"))
+            {
+                option_mode = false;
+            }
+            else if (wcseq(option, L"a"))
+            {
+                if (area)
+                {
+                    FATAL(L"Multiple '-a' options are not supported.");
+                }
+
+                SAYF(L"Option '-a' is not implemented yet.");
+
+                area = true;
+            }
+            else
+            {
+                usage(argv[0]);
+            }
+        }
+        else
+        {
+            if (position)
+            {
+                FATAL(L"Too many arguments supplied.");
+            }
+            else
+            {
+                position = i;
+            }
+        }
     }
 
-    LPCWSTR name = (argc > 1) ? argv[1] : WIDEN(DEFAULT_EXECUTABLE);
+    LPCWSTR name = position ? argv[position] : widen(DEFAULT_EXECUTABLE);
 
     DEBUG(L"Executable: %ls", name);
 
@@ -60,7 +103,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"An executable with the specified name has no visible windows.");
     }
 
-    DEBUG(L"Handle:     0x%p", handle);
+    DEBUG(L"Handle:     0x%p", (void *) handle);
 
     if (!CenterWindowOnPrimaryDisplay(handle))
     {
