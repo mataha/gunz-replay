@@ -15,8 +15,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdnoreturn.h>
-#include <windows.h>
 #include <wchar.h>
+
+#include <windows.h>
 
 #include "config.h"
 #include "debug.h"

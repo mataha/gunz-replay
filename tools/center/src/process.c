@@ -13,7 +13,8 @@
 // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 #include <windows.h>
-#include <tlhelp32.h> // -lkernel32
+
+#include <tlhelp32.h> // #pragma comment(lib, "kernel32")
 
 #include "process.h"
 #include "string.h"

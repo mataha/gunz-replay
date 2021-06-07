@@ -14,8 +14,8 @@
 
 #pragma once
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <wchar.h>
 
 #define ERRORF(...) do {                 \
         fwprintf_s(stderr, __VA_ARGS__); \
