@@ -20,9 +20,12 @@
 
 #include "config.h"
 #include "debug.h"
+#include "main.h"
 #include "process.h"
 #include "string.h"
 #include "window.h"
+
+#define OPTION_MARKER ((const wchar_t) L'-')
 
 static noreturn void error(const wchar_t * message)
 {
@@ -38,34 +41,34 @@ static noreturn void usage(const wchar_t * program)
 
 int wmain(int argc, wchar_t * argv[])
 {
-    bool area = false;
+    bool a = false;
 
-    bool option_mode = true;
+    enum { ARGUMENT_MODE = 0, OPTION_MODE } mode = OPTION_MODE;
     int position = 0;
 
-    for (int i = 1; i < argc; ++i)
+    for (int index = 1; index < argc; ++index)
     {
-        if (option_mode && argv[i][0] == L'-')
+        if (mode == OPTION_MODE && argv[index][0] == OPTION_MARKER)
         {
-            const wchar_t * option = &argv[i][1];
+            const wchar_t * option = &argv[index][1];
             if (option != NULL && wcslen(option) == 0)
             {
                 FATAL(L"Reading from stdin is not supported.");
             }
             else if (wcseq(option, L"-"))
             {
-                option_mode = false;
+                mode = ARGUMENT_MODE;
             }
             else if (wcseq(option, L"a"))
             {
-                if (area)
+                if (a)
                 {
                     FATAL(L"Multiple '-a' options are not supported.");
                 }
 
                 SAYF(L"Option '-a' is not implemented yet.");
 
-                area = true;
+                a = true;
             }
             else
             {
@@ -80,7 +83,7 @@ int wmain(int argc, wchar_t * argv[])
             }
             else
             {
-                position = i;
+                position = index;
             }
         }
     }
