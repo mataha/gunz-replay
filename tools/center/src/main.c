@@ -21,7 +21,6 @@
 
 #include "config.h"
 #include "debug.h"
-#include "main.h"
 #include "process.h"
 #include "string.h"
 #include "window.h"
