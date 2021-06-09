@@ -16,6 +16,16 @@
 
 #include "window.h"
 
+static inline LONG GetRectangleWidth(RECT rect)
+{
+    return rect.right - rect.left;
+}
+
+static inline LONG GetRectangleHeight(RECT rect)
+{
+    return rect.bottom - rect.top;
+}
+
 BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
 {
     // https://docs.microsoft.com/pl-pl/windows/win32/gdi/positioning-objects-on-a-multiple-display-setup
@@ -29,8 +39,8 @@ BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
     }
 
     RECT rcDisplay = bWorkArea ? monitor.rcWork : monitor.rcMonitor;
-    LONG lDisplayWidth  = rcDisplay.right  - rcDisplay.left;
-    LONG lDisplayHeight = rcDisplay.bottom - rcDisplay.top;
+    LONG lDisplayWidth  = GetRectangleWidth(rcDisplay);
+    LONG lDisplayHeight = GetRectangleHeight(rcDisplay);
 
     WINDOWINFO window;
     window.cbSize = sizeof(window);
@@ -40,8 +50,8 @@ BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
     }
 
     RECT rcWindow = window.rcWindow;
-    LONG lWindowWidth  = rcWindow.right  - rcWindow.left;
-    LONG lWindowHeight = rcWindow.bottom - rcWindow.top;
+    LONG lWindowWidth  = GetRectangleWidth(rcWindow);
+    LONG lWindowHeight = GetRectangleHeight(rcWindow);
 
     // I'm too lazy to do this properly, assume the window is borderless for now
     int x = rcDisplay.left + (lDisplayWidth  - lWindowWidth)  / 2;
