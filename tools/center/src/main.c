@@ -111,5 +111,7 @@ int wmain(int argc, wchar_t * argv[])
         error(L"Could not center the window on the screen - access denied.");
     }
 
+    SetForegroundWindow(handle);
+
     return EXIT_SUCCESS;
 }
