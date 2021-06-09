@@ -37,7 +37,7 @@ DWORD FindFirstProcessByExecutableName(LPCWSTR lpszExecutableName)
         return INVALID_PROCESS_VALUE;
     }
 
-    DWORD dwProcessId = INVALID_PROCESS_VALUE;
+    DWORD dwProcessId = 0;
 
     do
     {
@@ -49,5 +49,5 @@ DWORD FindFirstProcessByExecutableName(LPCWSTR lpszExecutableName)
     } while (Process32NextW(hProcessSnap, &pe32));
 
     CloseHandle(hProcessSnap);
-    return dwProcessId;
+    return dwProcessId | INVALID_PROCESS_VALUE;
 }

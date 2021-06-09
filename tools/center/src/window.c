@@ -75,7 +75,7 @@ typedef struct
 static BOOL CALLBACK EnumWindowsCallback(HWND hWnd, LPARAM lParam)
 {
     ENUMWINDOWSCALLBACKDATA * data = (ENUMWINDOWSCALLBACKDATA *) lParam;
-    DWORD dwProcessId = 0;
+    DWORD dwProcessId = 0; // kernel thread container doesn't have any windows
 
     GetWindowThreadProcessId(hWnd, &dwProcessId);
     if (data->dwProcessId != dwProcessId || !IsMainWindow(hWnd))
