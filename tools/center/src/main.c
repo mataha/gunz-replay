@@ -35,13 +35,13 @@ static noreturn void error(const wchar_t * message)
 
 static noreturn void usage(const wchar_t * program)
 {
-    ERRORF(L"Usage: %ls [-h] [-a] [executable]", program);
+    ERRORF(L"Usage: %ls [-h] [-w] [executable]", program);
     exit(EXIT_FAILURE);
 }
 
 int wmain(int argc, wchar_t * argv[])
 {
-    bool a = false;
+    bool w = false;
 
     enum { ARGUMENT_MODE = 0, OPTION_MODE } mode = OPTION_MODE;
     int position = 0;
@@ -59,16 +59,14 @@ int wmain(int argc, wchar_t * argv[])
             {
                 mode = ARGUMENT_MODE;
             }
-            else if (wcseq(option, L"a"))
+            else if (wcseq(option, L"w"))
             {
-                if (a)
+                if (w)
                 {
-                    FATAL(L"Multiple '-a' options are not supported.");
+                    FATAL(L"Multiple '-w' options are not supported.");
                 }
 
-                SAYF(L"Option '-a' is not implemented yet.");
-
-                a = true;
+                w = true;
             }
             else
             {
@@ -88,7 +86,7 @@ int wmain(int argc, wchar_t * argv[])
         }
     }
 
-    LPCWSTR name = position ? argv[position] : widen(DEFAULT_EXECUTABLE);
+    LPCWSTR name = position ? argv[position] : widen(EXECUTABLE_NAME);
 
     DEBUG(L"Executable: %ls", name);
 
@@ -108,7 +106,7 @@ int wmain(int argc, wchar_t * argv[])
 
     DEBUG(L"Handle:     0x%p", (void *) handle);
 
-    if (!CenterWindowOnPrimaryDisplay(handle))
+    if (!CenterWindowOnCurrentDisplay(handle, w || WORK_AREA_CENTERING))
     {
         error(L"Could not center the window on the screen - access denied.");
     }

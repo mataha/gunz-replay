@@ -16,28 +16,43 @@
 
 #include "window.h"
 
-BOOL CenterWindowOnPrimaryDisplay(HWND hWnd)
+BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
 {
-    WINDOWINFO info;
-    info.cbSize = sizeof(WINDOWINFO);
-    if (!GetWindowInfo(hWnd, &info))
+    // https://docs.microsoft.com/pl-pl/windows/win32/gdi/positioning-objects-on-a-multiple-display-setup
+    HMONITOR hMonitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
+
+    MONITORINFO monitor;
+    monitor.cbSize = sizeof(MONITORINFO);
+    if (!GetMonitorInfoW(hMonitor, &monitor))
     {
         return FALSE;
     }
 
-    LONG lWidth = info.rcWindow.right - info.rcWindow.left;
-    LONG lHeight = info.rcWindow.bottom - info.rcWindow.top;
+    RECT rcDisplay = bWorkArea ? monitor.rcWork : monitor.rcMonitor;
+    LONG lDisplayWidth  = rcDisplay.right  - rcDisplay.left;
+    LONG lDisplayHeight = rcDisplay.bottom - rcDisplay.top;
+
+    WINDOWINFO window;
+    window.cbSize = sizeof(WINDOWINFO);
+    if (!GetWindowInfo(hWnd, &window))
+    {
+        return FALSE;
+    }
+
+    RECT rcWindow = window.rcWindow;
+    LONG lWindowWidth  = rcWindow.right  - rcWindow.left;
+    LONG lWindowHeight = rcWindow.bottom - rcWindow.top;
 
     // I'm too lazy to do this properly, assume the window is borderless for now
-    int x = (GetSystemMetrics(SM_CXSCREEN) - (int) lWidth) / 2;
-    int y = (GetSystemMetrics(SM_CYSCREEN) - (int) lHeight) / 2;
+    int x = rcDisplay.left + (lDisplayWidth  - lWindowWidth)  / 2;
+    int y = rcDisplay.top  + (lDisplayHeight - lWindowHeight) / 2;
     
     return SetWindowPos(
         hWnd,
-        HWND_TOPMOST,
+        HWND_TOP,
         x, y,
         0, 0,
-        SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW
+        SWP_NOREPOSITION | SWP_NOSIZE | SWP_NOZORDER | SWP_SHOWWINDOW
     );
 }
 

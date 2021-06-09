@@ -16,7 +16,7 @@
 
 #include <windows.h>
 
-extern BOOL CenterWindowOnPrimaryDisplay(HWND hWnd);
+extern BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea);
 
 extern HWND FindMainWindowByProcessId(DWORD dwProcessId);
 

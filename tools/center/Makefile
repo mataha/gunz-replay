@@ -13,7 +13,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 PROGRAM     = center
-DESCRIPTION = Centers an executable's main window on the primary display
+DESCRIPTION = Centers an executable's main window on the current display
 
 SRC_DIR = src
 

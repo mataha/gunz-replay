@@ -14,8 +14,10 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 /*
- * Default name of the executable to center its main window on the primary
+ * Default name of the executable to center its main window on the current
  * display. Note that this is case-sensitive, as some servers can be easily
  * distinguished by their binaries' filenames - for reference, most servers
  * have 'Gunz.exe' as their client's executable name, but this program targets
@@ -23,6 +25,19 @@
  *
  * Adjustable via the first parameter.
  */
-#ifndef DEFAULT_EXECUTABLE
-# define DEFAULT_EXECUTABLE            "GunZ.exe"
+#ifndef EXECUTABLE_NAME
+# define EXECUTABLE_NAME                "GunZ.exe"
+#endif
+
+/*
+ * Default window centering behaviour - if true, centering is based on the
+ * current (i.e. having the largest area of intersection with the executable's
+ * main window) display's work area, and entire area of the current monitor
+ * otherwise. If that window doesn't intersect any screen, then the nearest
+ * display is selected instead.
+ *
+ * Adjustable via the '-w' option.
+ */
+#ifndef WORK_AREA_CENTERING
+# define WORK_AREA_CENTERING            false
 #endif
