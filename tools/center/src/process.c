@@ -29,7 +29,7 @@ DWORD FindFirstProcessByExecutableName(LPCWSTR lpszExecutableName)
     }
 
     PROCESSENTRY32W pe32;
-    pe32.dwSize = sizeof(PROCESSENTRY32W);
+    pe32.dwSize = sizeof(pe32);
 
     if (!Process32FirstW(hProcessSnap, &pe32))
     {

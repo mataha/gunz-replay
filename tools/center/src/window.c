@@ -22,7 +22,7 @@ BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
     HMONITOR hMonitor = MonitorFromWindow(hWnd, MONITOR_DEFAULTTONEAREST);
 
     MONITORINFO monitor;
-    monitor.cbSize = sizeof(MONITORINFO);
+    monitor.cbSize = sizeof(monitor);
     if (!GetMonitorInfoW(hMonitor, &monitor))
     {
         return FALSE;
@@ -33,7 +33,7 @@ BOOL CenterWindowOnCurrentDisplay(HWND hWnd, BOOL bWorkArea)
     LONG lDisplayHeight = rcDisplay.bottom - rcDisplay.top;
 
     WINDOWINFO window;
-    window.cbSize = sizeof(WINDOWINFO);
+    window.cbSize = sizeof(window);
     if (!GetWindowInfo(hWnd, &window))
     {
         return FALSE;
